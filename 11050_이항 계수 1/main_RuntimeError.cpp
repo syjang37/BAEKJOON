@@ -2,7 +2,7 @@
 #include <string.h>
 using namespace std;
 
-#define MAX_SIZE 1000
+int ** arr;
 int binomial(int n, int k);
 int main()
 {
@@ -11,18 +11,23 @@ int main()
 	scanf("%d %d", &n, &k);
 	fflush(stdin);
 
+	arr = new int*[n + 1];
+	for (int i = 0; i < n + 1; i++) {
+		arr[i] = new int[k];
+		memset(arr[i], -1, sizeof(int)*k);
+	}
+
 	printf("%d\n", binomial(n, k));
 	return 0;
 }
 int binomial(int n, int k)
 {
-	static int array[MAX_SIZE][MAX_SIZE];
 	if (n == k || k == 0) {
-		array[n][k] = 1;
+		arr[n][k] = 1;
 	}
-	else
+	else 
 	{
-		array[n][k] = binomial(n - 1, k) + binomial(n - 1, k - 1);
+		arr[n][k] = binomial(n - 1, k) + binomial(n - 1, k - 1);
 	}
-	return array[n][k];
+	return arr[n][k];
 }
